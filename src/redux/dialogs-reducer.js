@@ -1,0 +1,52 @@
+const ADD_DIALOGS = "ADD_DIALOGS"
+const SEND_MESSAGE = "SEND_MESSAGE"
+
+let initialState = {
+    dialogs: [
+        { name: "User1", id: 1},
+        { name: "User2", id: 2},
+        { name: "User3", id: 3},
+        { name: "User4", id: 4},
+        { name: "User5", id: 5},
+        { name: "User6", id: 6},
+    ],
+    messages: [
+        { message: "Hello", id: 1},
+        { message: "Hi", id: 2},
+        { message: "By", id: 3},
+        { message: "Blabla", id: 4},
+        { message: "Thanks", id: 5},
+        { message: "Beka", id: 6}
+    ],
+}
+
+const profileReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case ADD_DIALOGS:
+            let newDialogs = {
+                name: action.newDialogsBody, id: 7
+            }
+            return {
+                ...state,
+                dialogs: [...state.dialogs, newDialogs],
+                newDialogsBody: ""
+            }
+        case SEND_MESSAGE:
+            let newMessages = {
+                message: action.newMessagesBody, id: 6
+            }
+            return {
+                ...state,
+                messages: [...state.messages, newMessages],
+                newMessagesBody: ""
+            }
+        default: {
+            return {...state}
+        }
+    }
+}
+
+export const sendMessageActionCreator = (newMessagesBody) => ({type: SEND_MESSAGE, newMessagesBody })
+export const addDialogsActionCreator = (newDialogsBody) => ({type: ADD_DIALOGS, newDialogsBody})
+
+export default profileReducer;
