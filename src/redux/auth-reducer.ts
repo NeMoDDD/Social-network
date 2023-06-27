@@ -4,13 +4,13 @@ import {stopSubmit} from "redux-form";
 const SET_USER_DATA = "SET_USER_DATA"
 
 let initialState = {
-    email: null,
-    login: null,
-    id: null,
+    email: null as string | null,
+    login: null as string | null,
+    id: null as number | null,
     isAuth: false
 }
-
-const authReducer = (state = initialState, action) => {
+type InitialStateType = typeof initialState
+const authReducer = (state = initialState, action: any):InitialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -22,11 +22,20 @@ const authReducer = (state = initialState, action) => {
         }
     }
 }
-
-export const setUserData = (id, email, login, isAuth) => ({type: SET_USER_DATA, payload: {id, email, login, isAuth}})
+type UserDataActionPayloadType = {
+    id: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+}
+type SetUserDataActionType = {
+    type: typeof SET_USER_DATA
+    payload: UserDataActionPayloadType
+}
+export const setUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean):SetUserDataActionType => ({type: SET_USER_DATA, payload: {id, email, login, isAuth}})
 
 export const getAuthStatus = () => {
-    return async (dispatch) => {
+    return async (dispatch:any) => {
         let data = await authAPI.getAuth()
 
         if (data.resultCode === 0) {
@@ -37,7 +46,7 @@ export const getAuthStatus = () => {
 }
 
 export const login = (email, password, rememberMe) => {
-    return async (dispatch) => {
+    return async (dispatch:any) => {
         let data = await authAPI.login(email, password, rememberMe)
         if (data.resultCode === 0) {
             dispatch(getAuthStatus())
@@ -50,7 +59,7 @@ export const login = (email, password, rememberMe) => {
 
 
 export const logout = () => {
-    return async (dispatch) => {
+    return async (dispatch:any) => {
         let data = await authAPI.logout()
         if (data.resultCode === 0) {
             dispatch(setUserData(null, null, null, false))

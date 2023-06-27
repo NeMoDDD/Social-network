@@ -1,6 +1,15 @@
 const ADD_DIALOGS = "ADD_DIALOGS"
 const SEND_MESSAGE = "SEND_MESSAGE"
 
+
+type DialogsType = {
+    name: string
+    id: number
+}
+type MessagesType = {
+    message: string
+    id: number
+}
 let initialState = {
     dialogs: [
         { name: "User1", id: 1},
@@ -9,18 +18,21 @@ let initialState = {
         { name: "User4", id: 4},
         { name: "User5", id: 5},
         { name: "User6", id: 6},
-    ],
+    ] as Array<DialogsType>,
     messages: [
-        { message: "Hello", id: 1},
+        { message: "Hello", id: 1,},
         { message: "Hi", id: 2},
         { message: "By", id: 3},
         { message: "Blabla", id: 4},
         { message: "Thanks", id: 5},
         { message: "Beka", id: 6}
-    ],
+    ] as Array<MessagesType>,
+    newMessagesBody: "",
+    newDialogsBody: ""
 }
 
-const profileReducer = (state = initialState, action) => {
+type InitialStateType = typeof initialState
+const profileReducer = (state = initialState, action:any):InitialStateType => {
     switch (action.type) {
         case ADD_DIALOGS:
             let newDialogs = {
@@ -45,8 +57,15 @@ const profileReducer = (state = initialState, action) => {
         }
     }
 }
-
-export const sendMessageActionCreator = (newMessagesBody) => ({type: SEND_MESSAGE, newMessagesBody })
-export const addDialogsActionCreator = (newDialogsBody) => ({type: ADD_DIALOGS, newDialogsBody})
+type SendMessageActionCreatorType = {
+    type: typeof SEND_MESSAGE
+    newMessagesBody: string
+}
+export const sendMessageActionCreator = (newMessagesBody: string):SendMessageActionCreatorType => ({type: SEND_MESSAGE, newMessagesBody })
+type AddDialogsActionCreatorType = {
+    type: typeof SEND_MESSAGE
+    newDialogsBody: string
+}
+export const addDialogsActionCreator = (newDialogsBody: string):AddDialogsActionCreatorType => ({type: ADD_DIALOGS, newDialogsBody})
 
 export default profileReducer;

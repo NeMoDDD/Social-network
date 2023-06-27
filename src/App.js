@@ -9,6 +9,8 @@ import {initializedApp} from "./redux/app-reducer";
 import React, {lazy, Suspense} from "react";
 import Preloader from "./components/common/Preloader/Preloader";
 import store from "./redux/redux-store";
+import {getUsersStatus, setUsersProfile} from "./redux/profile-reducer";
+import Home from "./components/Home/Home";
 const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'))
 const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'))
 const UsersContainer = lazy(() => import('./components/Users/UsersContainer'))
@@ -32,7 +34,8 @@ class App extends React.Component {
                     <div className="content">
                         <Suspense fallback={<div><Preloader/></div>}>
                             <Routes>
-                                <Route path='*' element={<ProfileContainer/>}>
+                                <Route path='*' element={<Home/>}/>
+                                <Route path='/profile' element={<ProfileContainer/>}>
                                     <Route path=":userId" element={<ProfileContainer/>}/>
                                 </Route>
                                 <Route path='/dialogs/*' element={<DialogsContainer/>}/>

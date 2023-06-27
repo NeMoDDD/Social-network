@@ -10,6 +10,8 @@ const Profile = React.memo(props => {
             <ProfileInfo profile={props.profile} status={props.status}
                          updateUsersStatus={props.updateUsersStatus}
                          authorizedUserId={props.authorizedUserId}
+                         isOwner={props.isOwner}
+                         savePhoto={props.savePhoto}
             />
             <MyPostsContainer store={props.store}/>
         </div>
