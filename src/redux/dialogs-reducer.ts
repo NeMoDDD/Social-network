@@ -32,7 +32,7 @@ let initialState = {
 }
 
 type InitialStateType = typeof initialState
-const profileReducer = (state = initialState, action:any):InitialStateType => {
+const profileReducer = (state = initialState, action:ActionsType):InitialStateType => {
     switch (action.type) {
         case ADD_DIALOGS:
             let newDialogs = {
@@ -57,13 +57,15 @@ const profileReducer = (state = initialState, action:any):InitialStateType => {
         }
     }
 }
+type ActionsType = SendMessageActionCreatorType | AddDialogsActionCreatorType
+
 type SendMessageActionCreatorType = {
     type: typeof SEND_MESSAGE
     newMessagesBody: string
 }
 export const sendMessageActionCreator = (newMessagesBody: string):SendMessageActionCreatorType => ({type: SEND_MESSAGE, newMessagesBody })
 type AddDialogsActionCreatorType = {
-    type: typeof SEND_MESSAGE
+    type: typeof ADD_DIALOGS
     newDialogsBody: string
 }
 export const addDialogsActionCreator = (newDialogsBody: string):AddDialogsActionCreatorType => ({type: ADD_DIALOGS, newDialogsBody})
