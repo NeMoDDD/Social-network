@@ -10,33 +10,33 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers(currentPage, pageSize) {
+    getUsers(currentPage:number, pageSize:number) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
     },
 
-    followToUsers(id) {
+    followToUsers(id:number) {
         return instance.post(`follow/${id}`,).then(response => response.data)
     },
-    unFollowToUsers(id) {
+    unFollowToUsers(id:number) {
         return instance.delete(`follow/${id}`,).then(response => response.data)
     },
 
-    getProfile(userId) {
+    getProfile(userId:number) {
         return profileAPI.getProfile(userId)
     }
 }
 
 export const profileAPI = {
-    getProfile(userId) {
+    getProfile(userId:number) {
         return instance.get(`profile/` + userId).then(response => response.data)
     },
-    getStatus(userId) {
+    getStatus(userId:number) {
         return instance.get(`profile/status/` + userId)
     },
-    updateStatus(status) {
+    updateStatus(status:string) {
         return instance.put(`profile/status`, { status: status})
     },
-    savePhoto(photo) {
+    savePhoto(photo:any) {
         const formData = new FormData();
         formData.append("image", photo)
         return instance.put(`profile/photo`, formData, {
@@ -47,14 +47,43 @@ export const profileAPI = {
     }
 }
 
+export enum ResultCodesEnum {
+    Success = 0,
+    Error = 1,
+
+}
+
+type GetAuthResponseType = {
+    data: {
+        id: number
+        email: string
+        login: string
+    }
+    resultCode: number
+    messages: Array<string>
+}
+type LoginResponseType = {
+    data: {
+        userId: number
+    }
+    resultCode: number
+    messages: Array<string>
+}
+type LogoutResponseType = {
+    data: {}
+    resultCode: number
+    messages: Array<string>
+}
+
 export const authAPI = {
     getAuth() {
-        return instance.get(`auth/me`).then(response => response.data)
+        return instance.get<GetAuthResponseType>(`auth/me`).then(response => response.data)
     },
-    login(email, password, rememberMe = false) {
-        return instance.post("auth/login", {email, password, rememberMe}).then(response => response.data)
+    login(email:string, password:string, rememberMe:boolean = false) {
+        return instance.post<LoginResponseType>("auth/login", {email, password, rememberMe}).then(response => response.data)
     },
     logout() {
-        return instance.delete("auth/login").then(response => response.data)
+        // Вернуться
+        return instance.delete<LogoutResponseType>("auth/login").then(response => response.data)
     }
 }
