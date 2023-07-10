@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ContactsType, PhotosType, ProfileType} from "../types/types";
 
 const instance = axios.create({
     withCredentials: true,
@@ -8,17 +9,34 @@ const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 
 })
+type GetUsersResponseUserType = {
+    id: number
+    name: string
+    status: string
+    photos: PhotosType
+    followed: boolean
+}
+type GetUsersResponseType = {
+    items: Array<GetUsersResponseUserType>
+    totalCount: number
+    error: string
+}
+type FollowUnfollowResponseToUsersType = {
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+    data: {}
+}
 
 export const usersAPI = {
     getUsers(currentPage:number, pageSize:number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
+        return instance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
     },
 
     followToUsers(id:number) {
-        return instance.post(`follow/${id}`,).then(response => response.data)
+        return instance.post<FollowUnfollowResponseToUsersType>(`follow/${id}`,).then(response => response.data)
     },
     unFollowToUsers(id:number) {
-        return instance.delete(`follow/${id}`,).then(response => response.data)
+        return instance.delete<FollowUnfollowResponseToUsersType>(`follow/${id}`,).then(response => response.data)
     },
 
     getProfile(userId:number) {
@@ -26,20 +44,30 @@ export const usersAPI = {
     }
 }
 
+type UpdateStatusResponseType = {
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+    data: {}
+}
+type SavePhotoResponseType = {
+    data: PhotosType
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
 export const profileAPI = {
     getProfile(userId:number) {
-        return instance.get(`profile/` + userId).then(response => response.data)
+        return instance.get<ProfileType>(`profile/` + userId).then(response => response.data)
     },
     getStatus(userId:number) {
         return instance.get(`profile/status/` + userId)
     },
     updateStatus(status:string) {
-        return instance.put(`profile/status`, { status: status})
+        return instance.put<UpdateStatusResponseType>(`profile/status`, { status: status})
     },
     savePhoto(photo:any) {
         const formData = new FormData();
         formData.append("image", photo)
-        return instance.put(`profile/photo`, formData, {
+        return instance.put<SavePhotoResponseType>(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -59,19 +87,19 @@ type GetAuthResponseType = {
         email: string
         login: string
     }
-    resultCode: number
+    resultCode: ResultCodesEnum
     messages: Array<string>
 }
 type LoginResponseType = {
     data: {
         userId: number
     }
-    resultCode: number
+    resultCode: ResultCodesEnum
     messages: Array<string>
 }
 type LogoutResponseType = {
     data: {}
-    resultCode: number
+    resultCode: ResultCodesEnum
     messages: Array<string>
 }
 

@@ -1,3 +1,4 @@
+import {ResultCodesEnum} from "../Api/api";
 
 export type PostsType = {
     id: number
@@ -33,3 +34,9 @@ export type UsersType = {
     status: string
     photos: PhotosType
 }
+
+// export type PutResponseType = {
+//     resultCode: ResultCodesEnum
+//     messages: Array<string>
+//     data: {}
+// }

@@ -1,4 +1,4 @@
-import {usersAPI} from "../Api/api";
+import {ResultCodesEnum, usersAPI} from "../Api/api";
 import {updateObjectInArray} from "../utils/helpers/object-helpers";
 import {UsersType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
@@ -105,7 +105,6 @@ export const requestsUsers = (currentPage: number, pageSize: number):ThunkType =
         dispatch(setCurrentPage(currentPage))
         dispatch(toggleIsFetching(true))
         let data = await usersAPI.getUsers(currentPage, pageSize)
-
         dispatch(setUsers(data.items))
         dispatch(setTotalUsersCount(data.totalCount))
         dispatch(toggleIsFetching(false))
@@ -114,7 +113,7 @@ export const requestsUsers = (currentPage: number, pageSize: number):ThunkType =
 const _followUnfollowFlow = async (apiMethod: any, userId: number, dispatch:Dispatch<ActionsType>, actionCreator: (userId:number) => FollowSuccesType | UnfollowSuccesType) => {
     dispatch(toggleFollowingInProgress(true, userId))
     let data = await apiMethod(userId)
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(actionCreator(userId))
     }
     dispatch(toggleFollowingInProgress(false, userId))
