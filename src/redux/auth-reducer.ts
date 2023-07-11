@@ -51,7 +51,7 @@ export const getAuthStatus = ():ThunkType => {
     }
 }
 
-export const login = (email, password, rememberMe):ThunkType => {
+export const login = (email:string, password:string, rememberMe:boolean):ThunkType => {
     return async (dispatch) => {
         let data = await authAPI.login(email, password, rememberMe)
         if (data.resultCode === ResultCodesEnum.Success) {
