@@ -1,5 +1,4 @@
 import ProfileStatus from "../ProfileStatus";
-import Preloader from "../../common/Preloader/Preloader";
 import userPhoto from "../../../assets/images/user-photos.png"
 import style from "./ProfileInfo.module.css"
 
@@ -14,7 +13,8 @@ const ProfileInfo = ({profile, status, updateUsersStatus, isOwner, savePhoto}) =
     }
     return (
         <div>
-            {/*<img src={profile.photos.large || userPhoto} className={style.mainPhoto}/>*/}
+            {/*<button onClick={() => console.log(profile.photos.large)}></button>*/}
+            {/*<img src={profile.photos.large || userPhoto} className={style.mainPhoto} alt="ava"/>*/}
             {isOwner && <input type="file" onChange={onMainPhotosSelected}/>}
             <ProfileStatus status={status} updateUsersStatus={updateUsersStatus}/>
         </div>

@@ -1,7 +1,9 @@
-import {profileAPI, usersAPI} from "../Api/api";
 import {PhotosType, PostsType, ProfileType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
+import {usersAPI} from "../Api/users-apiI";
+import {profileAPI} from "../Api/profile-api";
+import {ResultCodesEnum} from "../Api/api";
 
 const ADD_POST = "ADD_POST"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
@@ -78,29 +80,30 @@ type ThunkType = ThunkAction<Promise<any>, AppStateType, unknown, ActionsType>
 
 export const setUsersProfile = (userId:number):ThunkType => {
     return async (dispatch) => {
-        let data = await usersAPI.getProfile(userId)
+        let data = await profileAPI.getProfile(userId)
         dispatch(setUserProfile(data))
     }
 }
 export const getUsersStatus = (userId:number):ThunkType => {
     return async (dispatch) => {
-        let response = await profileAPI.getStatus(userId)
-        dispatch(setUserStatus(response.data))
+        let data = await profileAPI.getStatus(userId)
+        dispatch(setUserStatus(data))
     }
 }
 export const updateUsersStatus = (status:string | null):ThunkType => {
     return async (dispatch) => {
-        let response = await profileAPI.updateStatus(status)
-        if (response.data.resultCode === 0) {
+        let data = await profileAPI.updateStatus(status)
+        if (data.resultCode === ResultCodesEnum.Success) {
             dispatch(setUserStatus(status))
         }
     }
 }
-export const savePhoto = (photo:PhotosType):ThunkType => {
+export const savePhoto = (photo: File):ThunkType => {
     return async (dispatch) => {
-        let response = await profileAPI.savePhoto(photo)
-        if (response.data.resultCode === 0) {
-            dispatch(setPhotoSuccess(response.data.data.photos))
+        let data= await profileAPI.savePhoto(photo)
+        if (data.resultCode === ResultCodesEnum.Success) {
+            console.log(data.data.photos)
+            dispatch(setPhotoSuccess(data.data.photos))
         }
     }
 }

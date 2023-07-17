@@ -20,6 +20,7 @@ export type PhotosType = {
     large: string | null
 }
 export type ProfileType = {
+    aboutMe: string | null
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
@@ -33,6 +34,7 @@ export type UsersType = {
     name: string
     status: string
     photos: PhotosType
+    followed: boolean
 }
 
 // export type PutResponseType = {

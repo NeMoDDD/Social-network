@@ -1,7 +1,8 @@
-import {authAPI, ResultCodesEnum} from "../Api/api";
+import {ResultCodesEnum} from "../Api/api";
 import {stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
+import {authAPI} from "../Api/auth-api";
 
 const SET_USER_DATA = "SET_USER_DATA"
 
