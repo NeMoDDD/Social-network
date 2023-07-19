@@ -1,8 +1,7 @@
 import s from "./Dialogs.module.css"
 import React from "react";
 import {
-    addDialogsActionCreator,
-    sendMessageActionCreator,
+    actions
 } from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
@@ -18,8 +17,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addDialogs: (newDialogsBody) => {dispatch(addDialogsActionCreator(newDialogsBody))},
-        sendMessage: (newMessageBody) => {dispatch(sendMessageActionCreator(newMessageBody))},
+        addDialogs: (newDialogsBody) => {dispatch(actions.addDialogsActionCreator(newDialogsBody))},
+        sendMessage: (newMessageBody) => {dispatch(actions.sendMessageActionCreator(newMessageBody))},
     }
 }
 

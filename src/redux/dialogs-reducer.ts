@@ -1,6 +1,4 @@
-const ADD_DIALOGS = "ADD_DIALOGS"
-const SEND_MESSAGE = "SEND_MESSAGE"
-
+import {BaseThunkType, InferActionsTypes} from "./redux-store";
 
 type DialogsType = {
     name: string
@@ -27,14 +25,13 @@ let initialState = {
         { message: "Thanks", id: 5},
         { message: "Beka", id: 6}
     ] as Array<MessagesType>,
-    newMessagesBody: "",
-    newDialogsBody: ""
+    newMessagesBody: "" as string | null,
+    newDialogsBody: "" as string | null
 }
 
-type InitialStateType = typeof initialState
 const profileReducer = (state = initialState, action:ActionsType):InitialStateType => {
     switch (action.type) {
-        case ADD_DIALOGS:
+        case 'SN/DIALOGS/ADD_DIALOGS':
             let newDialogs = {
                 name: action.newDialogsBody, id: 7
             }
@@ -43,7 +40,7 @@ const profileReducer = (state = initialState, action:ActionsType):InitialStateTy
                 dialogs: [...state.dialogs, newDialogs],
                 newDialogsBody: ""
             }
-        case SEND_MESSAGE:
+        case 'SN/DIALOGS/SEND_MESSAGE':
             let newMessages = {
                 message: action.newMessagesBody, id: 6
             }
@@ -57,17 +54,12 @@ const profileReducer = (state = initialState, action:ActionsType):InitialStateTy
         }
     }
 }
-type ActionsType = SendMessageActionCreatorType | AddDialogsActionCreatorType
 
-type SendMessageActionCreatorType = {
-    type: typeof SEND_MESSAGE
-    newMessagesBody: string
+export const actions = {
+    sendMessageActionCreator: (newMessagesBody: string) => ({type: 'SN/DIALOGS/SEND_MESSAGE', newMessagesBody} as const),
+    addDialogsActionCreator: (newDialogsBody: string) => ({type: 'SN/DIALOGS/ADD_DIALOGS', newDialogsBody} as const)
 }
-export const sendMessageActionCreator = (newMessagesBody: string):SendMessageActionCreatorType => ({type: SEND_MESSAGE, newMessagesBody })
-type AddDialogsActionCreatorType = {
-    type: typeof ADD_DIALOGS
-    newDialogsBody: string
-}
-export const addDialogsActionCreator = (newDialogsBody: string):AddDialogsActionCreatorType => ({type: ADD_DIALOGS, newDialogsBody})
-
+export type InitialStateType = typeof initialState
+type ActionsType = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsType>
 export default profileReducer;

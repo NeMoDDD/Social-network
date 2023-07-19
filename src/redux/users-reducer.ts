@@ -1,18 +1,9 @@
 import {ResultCodesEnum} from "../Api/api";
 import {updateObjectInArray} from "../utils/helpers/object-helpers";
 import {UsersType} from "../types/types";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionsTypes} from "./redux-store";
+import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {Dispatch} from "redux";
 import {usersAPI} from "../Api/users-apiI";
-
-// const SET_USERS = "SET_USERS"
-// const FOLLOW = "FOLLOW"
-// const UNFOLLOW = "UNFOLLOW"
-// const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
-// const SET_TOTAL_COUNT = "SET_TOTAL_COUNT"
-// const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
-// const FOLLOWING_IN_PROGRESS = "FOLLOWING_IN_PROGRESS"
 
 let initialState = {
     users: [] as Array<UsersType>,
@@ -23,7 +14,6 @@ let initialState = {
     followingInProgress: [] as Array<number>,
     userId: 0 as number
 }
-type InitialStateType = typeof initialState
 const usersReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "FOLLOW":
@@ -54,7 +44,6 @@ const usersReducer = (state = initialState, action: ActionsType): InitialStateTy
             return {...state}
     }
 }
-type ActionsType = InferActionsTypes<typeof actions>
 export const actions = {
     followSucces: (userId: number) => ({type: 'FOLLOW', userId} as const),
     unfollowSucces: (userId: number) => ({type: 'UNFOLLOW', userId} as const),
@@ -68,9 +57,6 @@ export const actions = {
         userId
     } as const),
 }
-
-
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
 export const requestsUsers = (currentPage: number, pageSize: number):ThunkType => {
     return async (dispatch) => {
         dispatch(actions.setCurrentPage(currentPage))
@@ -100,5 +86,9 @@ export const follow = (userId: number):ThunkType => {
         _followUnfollowFlow(usersAPI.followToUsers, userId, dispatch, actions.followSucces)
     }
 }
+
+type InitialStateType = typeof initialState
+type ActionsType = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsType>
 
 export default usersReducer;
