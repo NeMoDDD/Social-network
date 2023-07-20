@@ -37,7 +37,7 @@ type OwnPropsType = {
 
 }
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType
-class UsersContainer extends React.Component<PropsType> {
+class UsersContainer extends React.Component<PropsType, null> {
     componentDidMount() {
         let {currentPage, pageSize} = this.props
         this.props.getUsers(currentPage, pageSize)
@@ -76,7 +76,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         userId: state.usersPage.userId,
     }
 }
-export default compose(
+export default compose<React.ComponentType>(
     connect(mapStateToProps,
         {follow, unfollow, getUsers: requestsUsers}
     ),

@@ -52,4 +52,4 @@ const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
 const mapStateToProps = (state:AppStateType): MapStatePropsType => ({
     isAuth: state.auth.isAuth
 })
-export default connect(mapStateToProps, {login})(Login)
+export default connect(mapStateToProps, {login})(Login) as React.ComponentType

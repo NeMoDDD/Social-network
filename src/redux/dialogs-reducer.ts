@@ -56,8 +56,8 @@ const profileReducer = (state = initialState, action:ActionsType):InitialStateTy
 }
 
 export const actions = {
-    sendMessageActionCreator: (newMessagesBody: string) => ({type: 'SN/DIALOGS/SEND_MESSAGE', newMessagesBody} as const),
-    addDialogsActionCreator: (newDialogsBody: string) => ({type: 'SN/DIALOGS/ADD_DIALOGS', newDialogsBody} as const)
+    sendMessage: (newMessagesBody: string) => ({type: 'SN/DIALOGS/SEND_MESSAGE', newMessagesBody} as const),
+    addDialogs: (newDialogsBody: string) => ({type: 'SN/DIALOGS/ADD_DIALOGS', newDialogsBody} as const)
 }
 export type InitialStateType = typeof initialState
 type ActionsType = InferActionsTypes<typeof actions>

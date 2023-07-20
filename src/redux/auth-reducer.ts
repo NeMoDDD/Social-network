@@ -1,6 +1,6 @@
 import {ResultCodesEnum} from "../Api/api";
 import {stopSubmit} from "redux-form";
-import { BaseThunkType, InferActionsTypes} from "./redux-store";
+import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {authAPI} from "../Api/auth-api";
 
 let initialState = {

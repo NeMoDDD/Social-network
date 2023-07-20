@@ -5,7 +5,7 @@ import contactReducer from "./contact-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk"
-import { reducer as formReducer } from "redux-form"
+import {reducer as formReducer} from "redux-form"
 import appReducer from "./app-reducer";
 
 let reducers = combineReducers({
@@ -17,11 +17,9 @@ let reducers = combineReducers({
     form: formReducer,
     app: appReducer,
 })
-type RootReducerType = typeof reducers
-export type AppStateType = ReturnType<RootReducerType>
+export type AppStateType = ReturnType<typeof reducers>
 
-type PropertiesTypes<T> = T extends  {[key: string]: infer U } ? U : never
-export type InferActionsTypes<T extends {[key: string]: (...args: any[]) => any}>= ReturnType<PropertiesTypes<T>>
+export type InferActionsTypes<T> = T extends {[keys: string]: (...args: any[]) => infer U } ? U : never
 export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 // @ts-ignore

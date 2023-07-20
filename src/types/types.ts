@@ -1,5 +1,3 @@
-import {ResultCodesEnum} from "../Api/api";
-
 export type PostsType = {
     id: number
     message: string

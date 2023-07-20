@@ -1,7 +1,6 @@
 import {getAuthStatus} from "./auth-reducer"
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
-import {Dispatch} from "redux";
 
 const SET_INITIALIZED_SUCCESS = "SET_INITIALIZED_SUCCESS"
 

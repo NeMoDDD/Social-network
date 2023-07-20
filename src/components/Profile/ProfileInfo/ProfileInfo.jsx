@@ -1,6 +1,4 @@
 import ProfileStatus from "../ProfileStatus";
-import userPhoto from "../../../assets/images/user-photos.png"
-import style from "./ProfileInfo.module.css"
 
 const ProfileInfo = ({profile, status, updateUsersStatus, isOwner, savePhoto}) => {
     // if (!profile) {
