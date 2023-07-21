@@ -1,23 +1,28 @@
 import MyPostsContainer from "./MyPosts/MyPostContainer";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import React from "react";
+import {ProfileType} from "../../types/types";
 
-
-const Profile = React.memo(props => {
-
+type PropsType = {
+    profile: ProfileType
+    status: string
+    updateUsersStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: (file: File) => void
+}
+const Profile: React.FC<PropsType> = props => {
     return (
         <div>
             <ProfileInfo profile={props.profile} status={props.status}
                          updateUsersStatus={props.updateUsersStatus}
-                         authorizedUserId={props.authorizedUserId}
                          isOwner={props.isOwner}
                          savePhoto={props.savePhoto}
             />
-            <MyPostsContainer store={props.store}/>
+            <MyPostsContainer/>
         </div>
 
     )
 
-})
-
-export default Profile;
+}
+const ProfileMemorized = React.memo(Profile)
+export default ProfileMemorized;
