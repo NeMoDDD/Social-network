@@ -4,11 +4,13 @@ import React from "react";
 import {AddPostFormRedux, AddPostFormValuesType} from "./PostForm/PostForm";
 import {PostsType} from "../../../types/types";
 
-type PropsType = {
+export type MapPropsType = {
     posts: Array<PostsType>
+}
+export type DispatchPropsType = {
     addPost: (newPostBody: string) => void
 }
-const MyPosts: React.FC<PropsType> = props => {
+const MyPosts: React.FC<MapPropsType & DispatchPropsType> = props => {
     let postsElements = props.posts.map((p, index) => <Post message={p.message} likescount={p.likescount} key={index}/>)
     let addPost = (values: AddPostFormValuesType) => {
         props.addPost(values.newPostBody);

@@ -1,7 +1,8 @@
 import s from "./Nav.module.css"
 import {NavLink} from "react-router-dom";
+import React from "react";
 
-const Nav = () => {
+const Nav:React.FC = () => {
     return (
         <nav className={s.nav}>
             <div><NavLink to="/home" className={navData => navData.isActive ? s.active : s.item}>Home</NavLink></div>
