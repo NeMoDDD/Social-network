@@ -1,8 +1,8 @@
 import {APIResponseType, GetItemsType, instance} from "./api";
 
 export const usersAPI = {
-    getUsers(currentPage: number, pageSize: number) {
-        return instance.get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
+    getUsers(currentPage: number, pageSize: number, term: string="") {
+        return instance.get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}&term=${term}`).then(response => response.data)
     },
 
     followToUsers(id: number) {

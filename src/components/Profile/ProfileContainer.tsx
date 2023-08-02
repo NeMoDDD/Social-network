@@ -14,7 +14,12 @@ import {RouteComponentProps} from "react-router";
 import {ProfileType} from "../../types/types";
 
 
-type MapPropsType = ReturnType<typeof mapStateToProps>
+type MapPropsType = {
+    profile: ProfileType
+    status: string
+    authorizedUserId: number
+    isAuth: boolean
+}
 type DispatchPropsType = {
     setUsersProfile: (profile: ProfileType) => void
     getUsersStatus: (userId: number) => void
@@ -67,7 +72,7 @@ class ProfileContainer extends React.Component<MapPropsType & DispatchPropsType 
             <div>
                 <Profile isOwner={!this.props.router.params.userId}
                         {...this.props}
-                         profile={this.props.profile as ProfileType}
+                         profile={this.props.profile}
                          status={this.props.status as string}
                          updateUsersStatus={this.props.updateUsersStatus}
                          authorizedUserId={this.props.authorizedUserId}

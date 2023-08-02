@@ -8,10 +8,16 @@ type PropsType = {
     onPageChanged: (pageNumber: number) => void
     portionSize?: number
 }
-const Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, currentPage, onPageChanged, portionSize}) => {
+const Paginator: React.FC<PropsType> = ({
+                                            totalItemsCount,
+                                            pageSize,
+                                            currentPage,
+                                            onPageChanged = x => x,
+                                            portionSize
+                                        }) => {
 
     let pageCount = Math.ceil(totalItemsCount / pageSize)
-    let pages:Array<number> = []
+    let pages: Array<number> = []
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i)
     }

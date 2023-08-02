@@ -1,5 +1,7 @@
 import preloader from "../../../assets/images/loading.gif"
-const Preloader = (props) => {
+import React from "react";
+
+const Preloader:React.FC = () => {
     return (
         <div>
             <img src={preloader}/>

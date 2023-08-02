@@ -13,7 +13,8 @@ type PropsType = {
 const Profile: React.FC<PropsType> = props => {
     return (
         <div>
-            <ProfileInfo profile={props.profile} status={props.status}
+            <ProfileInfo profile={props.profile}
+                         status={props.status}
                          updateUsersStatus={props.updateUsersStatus}
                          isOwner={props.isOwner}
                          savePhoto={props.savePhoto}

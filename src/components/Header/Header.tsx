@@ -1,8 +1,12 @@
 import s from "./Header.module.css"
 import {NavLink} from "react-router-dom";
 
-
-const Header = (props) => {
+export type PropsType = {
+    isAuth: boolean
+    login: string
+    logout: () => void
+}
+const Header:React.FC<PropsType> = (props) => {
 	return <header className={s.header}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Twitter-logo.svg/2491px-Twitter-logo.svg.png" alt=""/>
                 <div className={s.loginBlock}>
